@@ -1,0 +1,89 @@
+name: Smart switch
+products:
+  - id: ngimwhcckkasc2ky
+    manufacturer: ELEGRP
+    model: SPN30 Smart Wi-Fi Light Switch
+entities:
+  # Main switch control
+  - entity: switch
+    dps:
+      - id: 1
+        name: switch
+        type: boolean
+      - id: 113
+        type: string
+        name: firmware_version
+        optional: true
+
+  # Settings
+  - entity: select
+    name: Restore on power loss
+    category: config
+    icon: "mdi:power-settings"
+    dps:
+      - id: 14
+        type: string
+        name: option
+        optional: true
+        mapping:
+          - dps_val: "on"
+            value: "Switch On"
+          - dps_val: "off"
+            value: "Switch Off"
+          - dps_val: "memory"
+            value: "Last State"
+  - entity: select
+    name: Indicator light mode
+    category: config
+    icon: "mdi:led-variant-on"
+    dps:
+      - id: 15
+        type: string
+        name: option
+        optional: true
+        mapping:
+          - dps_val: "relay"
+            value: "Indicate Switch On/Off"
+          - dps_val: "pos"
+            value: "Indicate Switch Location"
+          - dps_val: "on"
+            value: "Always On"
+          - dps_val: "none"
+            value: "Always Off"
+
+  # Timer
+  - entity: time
+    translation_key: timer
+    category: config
+    dps:
+      - id: 111
+        type: integer
+        name: second
+        range:
+          min: 0
+          max: 86399
+        optional: true
+  - entity: select
+    name: Timer mode
+    category: config
+    icon: "mdi:timer-cog"
+    dps:
+      - id: 110
+        type: boolean
+        name: option
+        optional: true
+        mapping:
+          - dps_val: false
+            value: "Off"
+          - dps_val: true
+            value: "On"
+  - entity: sensor
+    translation_key: time_remaining
+    class: duration
+    category: diagnostic
+    dps:
+      - id: 7
+        type: integer
+        name: sensor
+        unit: "s"
+        optional: true
